@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Regimes — what can actually be forecast</title>
+<meta name="description" content="Realised volatility, EWMA forecasts and regime detection on gold, Nifty 50 and the S&P 500. No price prediction, and the page says why.">
+<meta name="theme-color" content="#0a0d12">
+<link rel="canonical" href="https://vishnuvsdevtech.github.io/market-regimes/">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<header class="top">
+  <div class="brand"><span class="dot"></span><span class="mono">MARKET REGIMES</span></div>
+  <div class="right"><span class="meta mono" id="genAt">—</span>
+    <button class="icon" id="theme">◐</button></div>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="eyebrow mono">volatility · regime · drawdown</p>
+    <h1>What you can forecast, <em>and what you can't</em></h1>
+    <p class="lede">Direction is close to noise. <strong>Volatility is not</strong> — it clusters, it
+    mean-reverts, and it can be modelled honestly. This page shows realised volatility, an EWMA
+    forecast and a regime classification for three assets. It deliberately contains no price target,
+    no signal and no "buy" anywhere.</p>
+    <div id="states" class="states"></div>
+  </section>
+
+  <section class="sec">
+    <div class="panel-head">
+      <h2>Price with the regime behind it</h2>
+      <div class="tabs" id="assetTabs"></div>
+    </div>
+    <div class="chart-wrap"><canvas id="priceChart" width="1200" height="380"></canvas></div>
+    <div class="legend" id="priceLegend"></div>
+  </section>
+
+  <section class="sec">
+    <h2>Volatility, with its own history</h2>
+    <p class="sub">Annualised. The shaded band is the 20th–80th percentile of the last year, so
+    "high" means high <em>for this asset now</em>, not high in absolute terms.</p>
+    <div class="chart-wrap"><canvas id="volChart" width="1200" height="280"></canvas></div>
+  </section>
+
+  <section class="sec">
+    <h2>Drawdown</h2>
+    <p class="sub">Distance below the running peak. The one number that matters if you need the money soon.</p>
+    <div class="chart-wrap"><canvas id="ddChart" width="1200" height="220"></canvas></div>
+  </section>
+
+  <section class="sec">
+    <h2>After each regime, what happened next?</h2>
+    <p class="sub">Descriptive, not predictive. Every cell shows its sample size — a promising number
+    from 40 observations is a coincidence with good manners.</p>
+    <div id="fwdTable" class="table-wrap"></div>
+    <div class="callout">
+      <span class="k mono">how to read it</span>
+      <p>If the medians differ meaningfully <b>and</b> the samples are large, that's a real pattern worth
+      studying. If the medians are within a few percent of each other, the honest reading is "no signal
+      here" — which is the most common truthful answer in this field.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Why this and not a price predictor</h2>
+    <div class="grid3">
+      <div class="note-card">
+        <b>Volatility clusters</b>
+        <p>Large moves follow large moves. This is one of the most robust findings in finance, and it's
+        why every serious desk models risk rather than direction.</p>
+      </div>
+      <div class="note-card">
+        <b>Direction resists</b>
+        <p>If a repeatable edge existed, it would be arbitraged away. Anyone claiming reliable price
+        prediction is selling the model, not the returns.</p>
+      </div>
+      <div class="note-card">
+        <b>Regimes are descriptive</b>
+        <p>"The market is stressed" changes position sizing. "The market will fall" is a guess wearing
+        a lab coat.</p>
+      </div>
+    </div>
+    <div class="callout warn">
+      <span class="k mono">limits, stated up front</span>
+      <p>Daily closes only — no intraday, no costs, no slippage. EWMA is a forecast of variance, not a
+      guarantee. Regime thresholds (0.6 and 0.85 percentile) are conventional, not tuned. Past
+      behaviour in a regime is not a promise about the next occurrence. <b>Nothing here is investment
+      advice.</b></p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot mono">
+  <span>Market Regimes</span>
+  <span>Yahoo Finance daily closes · computed locally</span>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
